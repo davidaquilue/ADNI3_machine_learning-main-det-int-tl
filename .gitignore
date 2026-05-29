@@ -29,8 +29,9 @@ data/raw/
 .env
 *.log
 
-# Do not track Results folder
+# Do not track Results or logs folders
 Results/
+**/logs
 
 # Do not track .sh files
 **.sh
