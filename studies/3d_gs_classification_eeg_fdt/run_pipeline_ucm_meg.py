@@ -18,16 +18,23 @@ n_monte_carlo_jobs = 10  # Leave one core free
 # estimated via multivariate Ornstein-Uhlenbeck modelling (Berjaga-Buisan et al. 2025).
 # Features: FDT deviation, Asymmetry, and Entropy Production on the GEC matrix.
 data_files = {
-    "all_features_fdt_gec": "UCM_MEG_gec_analytical_features_ml_ready.csv",
+    # "all_features_fdt_gec": "UCM_MEG_gec_analytical_features_ml_ready.csv",
+    "gmv_features": "UCM_gmv_features_ml_ready.csv"
 }
 
 classifier = "LogReg"
 classifications = [
-    # "HC_vs_MCI_nC",
-    # "HC_vs_MCI_C",
+    "HC_vs_MCI_nC",
+    "HC_vs_MCI_C",
     "MCI_nC_vs_MCI_C",
     "HC_vs_AD"
 ]
+
+parameter_filenames = {
+    "all_features_fdt_gec": f"parameters_{classifier}_MEG.json",
+    "gmv_features": f"parameters_{classifier}_UCMGMV.json"
+}
+
 group_labels = {"HC": "HC", "MCI_nC": "MCI (nC)", "MCI_C": "MCI (C)", "AD": "AD"}
 
 if __name__ == "__main__":
@@ -56,7 +63,7 @@ if __name__ == "__main__":
             data_file = excel_folder / data_files[data_type]
 
             # Load the parameters file
-            param_file = path_repo / "Parameters" / f"parameters_{classifier}_MEG.json"
+            param_file = path_repo / "Parameters" / parameter_filenames[data_type]
             with open(param_file, "r") as file:
                 parameters = json.load(file)
             parameters["N_JOBS"] = 1  # For MRMR and other processes, best keep at 1
