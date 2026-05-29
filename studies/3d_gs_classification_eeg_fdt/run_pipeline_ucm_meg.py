@@ -10,7 +10,7 @@ from src.pipelines.train_eval_pipelines import (
 )
 
 # Determine the number of CPU cores to use
-n_jobs = multiprocessing.cpu_count() - 1  # Leave one core free
+n_monte_carlo_jobs = 10  # Leave one core free
 
 # UCM MEG study: 233 subjects in the AD spectrum selected from a large cohort.
 # Groups: HC, MCI (non-converter, nC), MCI (converter, C), AD dementia.
@@ -23,8 +23,8 @@ data_files = {
 
 classifier = "LogReg"
 classifications = [
-    "HC_vs_MCI_nC",
-    "HC_vs_MCI_C",
+    # "HC_vs_MCI_nC",
+    # "HC_vs_MCI_C",
     "MCI_nC_vs_MCI_C",
     "HC_vs_AD"
 ]
@@ -59,7 +59,7 @@ if __name__ == "__main__":
             param_file = path_repo / "Parameters" / f"parameters_{classifier}_MEG.json"
             with open(param_file, "r") as file:
                 parameters = json.load(file)
-            parameters["N_JOBS"] = n_jobs
+            parameters["N_JOBS"] = 1  # For MRMR and other processes, best keep at 1
 
             if classification == "HC_vs_MCI_nC":
                 # HC vs MCI non-converter
@@ -88,5 +88,6 @@ if __name__ == "__main__":
             # performances.
             train_eval_gridsearch_loocv_with_outer_n_loop(
                 x, y, feature_columns, parameters, results_folder,
-                n=20
+                n=20,
+                n_monte_carlo_jobs=n_monte_carlo_jobs,
             )
