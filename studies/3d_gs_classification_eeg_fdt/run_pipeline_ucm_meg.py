@@ -19,7 +19,8 @@ n_monte_carlo_jobs = 10  # Leave one core free
 # Features: FDT deviation, Asymmetry, and Entropy Production on the GEC matrix.
 data_files = {
     # "all_features_fdt_gec": "UCM_MEG_gec_analytical_features_ml_ready.csv",
-    "gmv_features": "UCM_gmv_features_ml_ready.csv"
+    # "gmv_features": "UCM_gmv_features_ml_ready.csv"
+    "all_features_fdt_gec_env": "UCM_MEG_gec_env_analytical_features_ml_ready.csv"
 }
 
 classifier = "LogReg"
