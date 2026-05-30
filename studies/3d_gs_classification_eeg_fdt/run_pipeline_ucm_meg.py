@@ -20,7 +20,8 @@ n_monte_carlo_jobs = 10  # Leave one core free
 data_files = {
     # "all_features_fdt_gec": "UCM_MEG_gec_analytical_features_ml_ready.csv",
     # "gmv_features": "UCM_gmv_features_ml_ready.csv"
-    "all_features_fdt_gec_env": "UCM_MEG_gec_env_analytical_features_ml_ready.csv"
+    # "all_features_fdt_gec_env": "UCM_MEG_gec_env_analytical_features_ml_ready.csv"
+    "all_features_gec_env_gmv": "UCM_MEG_gmv_features_ml_ready.csv",
 }
 
 classifier = "LogReg"
@@ -33,7 +34,9 @@ classifications = [
 
 parameter_filenames = {
     "all_features_fdt_gec": f"parameters_{classifier}_MEG.json",
-    "gmv_features": f"parameters_{classifier}_UCMGMV.json"
+    "gmv_features": f"parameters_{classifier}_UCMGMV.json",
+    "all_features_fdt_gec_env": f"parameters_{classifier}_MEG.json",
+    "all_features_gec_env_gmv": f"parameters_{classifier}_MEG.json",
 }
 
 group_labels = {"HC": "HC", "MCI_nC": "MCI (nC)", "MCI_C": "MCI (C)", "AD": "AD"}
