@@ -34,7 +34,10 @@ df_all_metrics = df_all_metrics.drop(
 
 # Additionally, change the info in the Feature Set
 features_strs = {
-    "all_features_fdt_gec": "FDT Deviation, Asymmetry & Entropy Production",
+    "all_features_fdt_gec": "FDT, Asymm & EP",
+    "all_features_fdt_gec_env": "FDT, Asym & EP (ENV)",
+    "all_features_gec_env_gmv": "FDT, Asymm & EP (ENV) + GMV",
+    "gmv_features": "GMV",
 }
 df_all_metrics["Feature Set"] = df_all_metrics["Feature Set"].apply(
     lambda x: features_strs[x]
