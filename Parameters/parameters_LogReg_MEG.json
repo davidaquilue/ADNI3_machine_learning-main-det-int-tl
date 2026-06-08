@@ -7,7 +7,7 @@
     "HC": 0,
     "AD": 1
   },
-  "ID_KEY" : "sub",
+  "ID_KEY" : "participant_id",
   "GROUP_KEY": "classification",
   "MODEL_TYPE": "LogisticRegression",
   "MODEL_KWARGS": {
@@ -19,7 +19,7 @@
   "STANDARDIZE_DATA": true,
   "GRID_SEARCH": {
     "HYPERPARAM_SWEEP": {
-     "NF": [5, 6, 7, 8, 9, 10, 11],
+     "NF": [5, 6, 7, 8, 9, 10, 11, 12],
       "C": [0.01, 0.1, 1, 5, 10, 50, 100, 500],
       "penalty": ["l1", "l2"]
     },
