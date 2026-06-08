@@ -10,7 +10,7 @@ from src.pipelines.train_eval_pipelines import (
 )
 
 # Determine the number of CPU cores to use
-n_monte_carlo_jobs = 10  # Leave one core free
+n_monte_carlo_jobs = 20  # Leave one core free
 
 # UCM MEG study: 233 subjects in the AD spectrum selected from a large cohort.
 # Groups: HC, MCI (non-converter, nC), MCI (converter, C), AD dementia.
@@ -21,7 +21,8 @@ data_files = {
     # "all_features_fdt_gec": "UCM_MEG_gec_analytical_features_ml_ready.csv",
     # "gmv_features": "UCM_gmv_features_ml_ready.csv"
     # "all_features_fdt_gec_env": "UCM_MEG_gec_env_analytical_features_ml_ready.csv"
-    "all_features_gec_env_gmv": "UCM_MEG_gmv_features_ml_ready.csv",
+    # "all_features_gec_env_gmv": "UCM_MEG_gmv_features_ml_ready.csv",
+    "gene_features": "UCM_gene_features_ML_ready.csv"
 }
 
 classifier = "LogReg"
@@ -37,6 +38,7 @@ parameter_filenames = {
     "gmv_features": f"parameters_{classifier}_UCMGMV.json",
     "all_features_fdt_gec_env": f"parameters_{classifier}_MEG.json",
     "all_features_gec_env_gmv": f"parameters_{classifier}_MEG.json",
+    "gene_features": f"parameters_{classifier}_MEG.json"
 }
 
 group_labels = {"HC": "HC", "MCI_nC": "MCI (nC)", "MCI_C": "MCI (C)", "AD": "AD"}
