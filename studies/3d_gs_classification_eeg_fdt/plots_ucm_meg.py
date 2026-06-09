@@ -42,12 +42,14 @@ fixed_feature_set = "all_features_fdt_gec"
 scenarios_to_compare = ["HC_vs_MCI_nC", "HC_vs_MCI_C", "MCI_nC_vs_MCI_C"]
 
 # When mode == "compare_feature_sets": set the fixed scenario and list of feature sets
-fixed_scenario = "HC_vs_MCI_nC"
+fixed_scenario = "MCI_C_vs_AD"
 feature_sets_to_compare = [
-    # "all_features_fdt_gec",
-    "all_features_fdt_gec_env",
-    "all_features_gec_env_gmv",
+    "gec_features",
+    "gecenv_features",
+    "gene_features",
+    "gene_gecenv_features",
     "gmv_features",
+    "gmv_gecenv_features"
 ]
 
 # Will plot the first n_features_plot + 1 features
@@ -57,24 +59,32 @@ n_features_plot = 9
 # Display-name mappings
 # ---------------------------------------------------------------------
 group_comparisons_strs = {
+    "HC_vs_AD": r"HC vs AD",
     "HC_vs_MCI_nC": r"HC vs MCI (nC)",
     "HC_vs_MCI_C": r"HC vs MCI (C)",
+    "SCD_vs_AD": r"SCD vs AD",
+    "SCD_vs_MCI_C": r"SCD vs MCI (C)",
     "MCI_nC_vs_MCI_C": r"MCI (nC) vs MCI (C)",
-    "HC_vs_AD": r"HC vs AD",
+    "MCI_C_vs_AD": r"MCI (C) vs AD",
 }
 
 group_comparisons_labels = {
+    "HC_vs_AD": [r"HC", r"AD"],
     "HC_vs_MCI_nC": [r"HC", r"MCI (nC)"],
     "HC_vs_MCI_C": [r"HC", r"MCI (C)"],
+    "SCD_vs_AD": [r"SCD", r"AD"],
+    "SCD_vs_MCI_C": [r"SCD", r"MCI (C)"],
     "MCI_nC_vs_MCI_C": [r"MCI (nC)", r"MCI (C)"],
-    "HC_vs_AD": [r"HC", r"AD"],
+    "MCI_C_vs_AD": [r"MCI (C)", r"AD"],
 }
 
 features_strs = {
-    "all_features_fdt_gec": "FDT, Asymm & EP",
-    "all_features_fdt_gec_env": "FDT, Asymm & EP (ENV)",
-    "all_features_gec_env_gmv": "FDT, Asymm & EP (ENV) + GMV",
+    "gec_features": "GEC (EP+FDT)",
+    "gecenv_features": "GEC env (EP+FDT)",
+    "gene_features": "Gene",
+    "gene_gecenv_features": "Gene + GEC env",
     "gmv_features": "GMV",
+    "gmv_gecenv_features": "GMV + GEC env"
 }
 
 
@@ -188,7 +198,11 @@ def load_results(path_results, scenario, feature_set):
 # ---------------------------------------------------------------------
 path_repo = Path(Path(__file__).parent / ".." / "..").resolve()
 path_results = path_repo / "Results" / "3d_gs_classification_ucm_meg_fdt_gec"
-
+if mode == "compare_feature_sets":
+    path_figures = path_results / mode / fixed_scenario
+else:
+    path_figures = path_results / mode / fixed_feature_set
+path_figures.mkdir(parents=True, exist_ok=True)
 
 # ---------------------------------------------------------------------
 # Build the list of (key, display_label, scenario, feature_set)
@@ -258,8 +272,8 @@ ax_roc.set_box_aspect(1)
 ax_roc.set_title(f"ROC Curves ({fixed_label})")
 
 fig_roc.tight_layout()
-fig_roc.savefig(path_results / f"classification_roc_{file_suffix}.pdf", dpi=600)
-fig_roc.savefig(path_results / f"classification_roc_{file_suffix}.svg", dpi=600)
+fig_roc.savefig(path_figures / f"classification_roc_{file_suffix}.pdf", dpi=600)
+fig_roc.savefig(path_figures / f"classification_roc_{file_suffix}.svg", dpi=600)
 
 
 # =====================================================================
@@ -288,8 +302,8 @@ for ax, (key, display, scenario, feature_set) in zip(axes_cm, items):
     ax.set_box_aspect(1)
 
 fig_cm.tight_layout()
-fig_cm.savefig(path_results / f"classification_cm_{file_suffix}.pdf", dpi=600)
-fig_cm.savefig(path_results / f"classification_cm_{file_suffix}.svg", dpi=600)
+fig_cm.savefig(path_figures / f"classification_cm_{file_suffix}.pdf", dpi=600)
+fig_cm.savefig(path_figures / f"classification_cm_{file_suffix}.svg", dpi=600)
 
 
 # =====================================================================
@@ -368,11 +382,11 @@ for idx, (key, display, scenario, feature_set) in enumerate(items):
 fig_shap.suptitle(f"Feature Importance ({fixed_label})", fontsize=18, y=1.02)
 fig_shap.tight_layout()
 fig_shap.savefig(
-    path_results / f"classification_shap_{file_suffix}.pdf", dpi=600,
+    path_figures / f"classification_shap_{file_suffix}.pdf", dpi=600,
     bbox_inches="tight",
 )
 fig_shap.savefig(
-    path_results / f"classification_shap_{file_suffix}.svg", dpi=600,
+    path_figures / f"classification_shap_{file_suffix}.svg", dpi=600,
     bbox_inches="tight",
 )
 

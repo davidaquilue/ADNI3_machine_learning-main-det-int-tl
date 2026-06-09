@@ -34,10 +34,12 @@ df_all_metrics = df_all_metrics.drop(
 
 # Additionally, change the info in the Feature Set
 features_strs = {
-    "all_features_fdt_gec": "FDT, Asymm & EP",
-    "all_features_fdt_gec_env": "FDT, Asym & EP (ENV)",
-    "all_features_gec_env_gmv": "FDT, Asymm & EP (ENV) + GMV",
+    "gec_features": "GEC (EP+FDT)",
+    "gecenv_features": "GEC env (EP+FDT)",
+    "gene_features": "Gene",
+    "gene_gecenv_features": "Gene + GEC env",
     "gmv_features": "GMV",
+    "gmv_gecenv_features": "GMV + GEC env"
 }
 df_all_metrics["Feature Set"] = df_all_metrics["Feature Set"].apply(
     lambda x: features_strs[x]
@@ -45,9 +47,13 @@ df_all_metrics["Feature Set"] = df_all_metrics["Feature Set"].apply(
 
 # Export the results for each group comparison in a different sheet and improve names
 group_comparisons_strs = {
-    "HC_vs_MCI_nC": "HC vs MCI (nC)",
-    "HC_vs_MCI_C": "HC vs MCI (C)",
-    "MCI_nC_vs_MCI_C": "MCI (nC) vs MCI (C)",
+    "HC_vs_AD": r"HC vs AD",
+    "HC_vs_MCI_nC": r"HC vs MCI (nC)",
+    "HC_vs_MCI_C": r"HC vs MCI (C)",
+    "SCD_vs_AD": r"SCD vs AD",
+    "SCD_vs_MCI_C": r"SCD vs MCI (C)",
+    "MCI_nC_vs_MCI_C": r"MCI (nC) vs MCI (C)",
+    "MCI_C_vs_AD": r"MCI (C) vs AD",
 }
 
 name_file = 'group_comparison_results.xlsx'
