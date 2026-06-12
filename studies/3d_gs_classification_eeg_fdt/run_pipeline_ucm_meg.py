@@ -27,12 +27,13 @@ data_files = {
 
 classifier = "LogReg"
 classifications = [
-    "HC_vs_AD",
-    "HC_vs_MCI_nC",
-    "HC_vs_MCI_C",
+    # "HC_vs_AD",
+    # "HC_vs_MCI_nC",
+    # "HC_vs_MCI_C",
     "SCD_vs_AD",
+    "SCD_vs_MCI_nC"
     "SCD_vs_MCI_C",
-    "MCI_nC_vs_MCI_C",
+    # "MCI_nC_vs_MCI_C",
     "MCI_C_vs_AD"
 ]
 
@@ -41,7 +42,9 @@ parameter_filenames = {
     for feature_set in data_files
 }
 
-group_labels = {"HC": "HC", "MCI_nC": "MCI (nC)", "MCI_C": "MCI (C)", "AD": "AD"}
+group_labels = {
+    "HC": "HC", "SCD": "SCD", "MCI_nC": "MCI (nC)", "MCI_C": "MCI (C)", "AD": "AD"
+}
 
 if __name__ == "__main__":
     # Main execution
@@ -74,17 +77,11 @@ if __name__ == "__main__":
                 parameters = json.load(file)
             parameters["N_JOBS"] = 1  # For MRMR and other processes, best keep at 1
 
-            if classification == "HC_vs_MCI_nC":
-                # HC vs MCI non-converter
-                parameters["GROUPS"] = {"HC": 0, "MCI (nC)": 1}
-            elif classification == "HC_vs_MCI_C":
-                # HC vs MCI converter
-                parameters["GROUPS"] = {"HC": 0, "MCI (C)": 1}
-            elif classification == "MCI_nC_vs_MCI_C":
-                # MCI non-converter vs MCI converter: predict AD conversion
-                parameters["GROUPS"] = {"MCI (nC)": 0, "MCI (C)": 1}
-            else:
-                pass
+            # Parse classification string (e.g. "HC_vs_MCI_nC") into group labels
+            group_a_key, group_b_key = classification.split("_vs_")
+            parameters["GROUPS"] = {
+                group_labels[group_a_key]: 0, group_labels[group_b_key]: 1
+            }
 
             print(f"Training N fold with {classifier} Grid Search and LOOCV {data_file} Data")
 
