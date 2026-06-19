@@ -17,28 +17,29 @@ n_monte_carlo_jobs = 20
 # estimated via multivariate Ornstein-Uhlenbeck modelling (Berjaga-Buisan et al. 2025).
 # Features: FDT violation and Entropy Production on the GEC matrix.
 data_files = {
-    "gene_features": "UCM_gene_features_ML_ready.csv",
-    "gene_gecenv_features": "UCM_gene_gec_env_features_ML_ready.csv",
-    "gmv_features": "UCM_gmv_features_ML_ready.csv",
-    "gmv_gecenv_features": "UCM_gmv_gec_env_features_ML_ready.csv",
-    "gecenv_features": "UCM_gec_env_features_ML_ready.csv",
-    "gec_features": "UCM_gec_features_ML_ready.csv"
+    "meg_power_conn": "UCM_power_conn_features_ML_ready.csv",
+    "meg_all": "UCM_power_conn_gec_env_features_ML_ready.csv",
+    "meg_thermo": "UCM_gec_env_features_ML_ready.csv",
+    "gene_meg_thermo": "UCM_gene_gec_env_features_ML_ready.csv",
+    "gene_meg_all": "UCM_gene_all_neurophys_features_ML_ready.csv",
+    "gmv": "UCM_gmv_features_ML_ready.csv",
+    "gmv_meg_thermo": "UCM_gmv_gec_env_features_ML_ready.csv",
 }
 
 classifier = "LogReg"
 classifications = [
-    # "HC_vs_AD",
-    # "HC_vs_MCI_nC",
-    # "HC_vs_MCI_C",
-    "SCD_vs_AD",
-    "SCD_vs_MCI_nC"
+    "HC_vs_AD",
+    "HC_vs_MCI_nC",
+    "HC_vs_MCI_C",
+    # "SCD_vs_AD",
+    "SCD_vs_MCI_nC",
     "SCD_vs_MCI_C",
-    # "MCI_nC_vs_MCI_C",
-    "MCI_C_vs_AD"
+    "MCI_nC_vs_MCI_C",
+    "MCI_C_vs_AD",
 ]
 
 parameter_filenames = {
-    feature_set: f"parameters_{classifier}_{'UCMGMV' if feature_set == 'gmv_features' else 'MEG'}.json"
+    feature_set: f"parameters_{classifier}_{'UCMGMV' if feature_set == 'gmv' else 'MEG'}.json"
     for feature_set in data_files
 }
 
