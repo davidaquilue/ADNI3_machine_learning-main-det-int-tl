@@ -42,18 +42,18 @@ fixed_feature_set = "all_features_fdt_gec"
 scenarios_to_compare = ["HC_vs_MCI_nC", "HC_vs_MCI_C", "MCI_nC_vs_MCI_C"]
 
 # When mode == "compare_feature_sets": set the fixed scenario and list of feature sets
-fixed_scenario = "MCI_C_vs_AD"
+fixed_scenario = "HC_vs_MCI_C"
 feature_sets_to_compare = [
-    "gec_features",
-    "gecenv_features",
-    "gene_features",
-    "gene_gecenv_features",
-    "gmv_features",
-    "gmv_gecenv_features"
+    "meg_power_conn",
+    "meg_thermo",
+    "meg_all",
+    "gene_meg_all",
+    "gmv",
+    "gmv_meg_thermo"
 ]
 
 # Will plot the first n_features_plot + 1 features
-n_features_plot = 9
+n_features_plot = 7
 
 # ---------------------------------------------------------------------
 # Display-name mappings
@@ -64,6 +64,7 @@ group_comparisons_strs = {
     "HC_vs_MCI_C": r"HC vs MCI (C)",
     "SCD_vs_AD": r"SCD vs AD",
     "SCD_vs_MCI_C": r"SCD vs MCI (C)",
+    "SCD_vs_MCI_nC": r"SCD vs MCI (nC)",
     "MCI_nC_vs_MCI_C": r"MCI (nC) vs MCI (C)",
     "MCI_C_vs_AD": r"MCI (C) vs AD",
 }
@@ -74,17 +75,18 @@ group_comparisons_labels = {
     "HC_vs_MCI_C": [r"HC", r"MCI (C)"],
     "SCD_vs_AD": [r"SCD", r"AD"],
     "SCD_vs_MCI_C": [r"SCD", r"MCI (C)"],
+    "SCD_vs_MCI_nC": [r"SCD", r"MCI (nC)"],
     "MCI_nC_vs_MCI_C": [r"MCI (nC)", r"MCI (C)"],
     "MCI_C_vs_AD": [r"MCI (C)", r"AD"],
 }
 
 features_strs = {
-    "gec_features": "GEC (EP+FDT)",
-    "gecenv_features": "GEC env (EP+FDT)",
-    "gene_features": "Gene",
-    "gene_gecenv_features": "Gene + GEC env",
-    "gmv_features": "GMV",
-    "gmv_gecenv_features": "GMV + GEC env"
+    "meg_power_conn": "MEG (Power + Conn)",
+    "meg_thermo": "MEG (Thermodyn)",
+    "meg_all": "MEG (Thermodyn + Power + Conn)",
+    "gene_meg_all": "Gene + MEG (T + P + C)",
+    "gmv": "GMV",
+    "gmv_meg_thermo": "GMV + MEG (Thermodyn)"
 }
 
 
